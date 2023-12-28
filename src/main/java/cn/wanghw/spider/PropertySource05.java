@@ -6,11 +6,10 @@ import cn.wanghw.utils.HashMapUtils;
 
 import java.util.HashMap;
 
-public class PropertySource02 implements ISpider {
-
+public class PropertySource05 implements ISpider {
 
     public String getName() {
-        return "MutablePropertySources";
+        return "JavaProperties";
     }
 
 
@@ -18,15 +17,12 @@ public class PropertySource02 implements ISpider {
 
         final StringBuilder result = new StringBuilder();
         try {
-            Object clazz = heapHolder.findClass("org.springframework.core.env.MutablePropertySources");
+            Object clazz = heapHolder.findClass("java.util.Properties");
             if (clazz == null)
                 return null;
             HashMap<String, String> values = new HashMap<String, String>();
             for (Object instance : heapHolder.getInstances(clazz)) {
-                Object[] array = heapHolder.getArrayItems(heapHolder.getFieldValue(instance, "propertySourceList.array"));
-                for (Object source : array) {
-                    values.putAll(heapHolder.arrayDump(heapHolder.getMap(source)));
-                }
+                values.putAll(heapHolder.arrayDump(heapHolder.getMap(instance)));
             }
             result.append(HashMapUtils.dumpString(values, false));
         } catch (Exception ex) {

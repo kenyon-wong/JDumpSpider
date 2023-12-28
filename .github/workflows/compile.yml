@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: Import netbeans dependency
+        run: mvn install:install-file -Dfile=lib/netbeans-lib-profiler.jar -DgroupId=netbeans -DartifactId=netbeans-lib-profiler -Dversion=1.0 -Dpackaging=jar
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - run: mkdir release && cp target/*-full.jar release

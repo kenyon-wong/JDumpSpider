@@ -7,6 +7,13 @@ HeapDump敏感信息提取工具
 
 # 编译
 需要Maven、JDK 1.8。
+
+首先需要将netbeans-lib-profiler导入本地maven仓库
+```
+$ cd lib/
+$ mvn install:install-file -Dfile=netbeans-lib-profiler.jar -DgroupId=netbeans -DartifactId=netbeans-lib-profiler -Dversion=1.0 -Dpackaging=jar
+```
+导入完成后切换至项目根目录，运行编译打包命令
 ```
 $ mvn package
 ```
@@ -15,27 +22,30 @@ $ mvn package
 暂支持提取以下类型的敏感信息
 
 - 数据源
-    - SpringDataSourceProperties
-    - WeblogicDataSourceConnectionPoolConfig
-    - MongoClient
-    - AliDruidDataSourceWrapper
+  - SpringDataSourceProperties
+  - WeblogicDataSourceConnectionPoolConfig
+  - MongoClient
+  - AliDruidDataSourceWrapper
+  - HikariDataSource
 - 配置文件信息
-    - MapPropertySource
-    - OriginTrackedMapPropertySource
-    - MutablePropertySource
-    - ConsulPropertySource
-    - OSS（模糊搜索）
+  - MapPropertySource
+  - OriginTrackedMapPropertySource
+  - MutablePropertySource
+  - ConsulPropertySource
+  - OSS（模糊搜索）
 - Redis配置
-    - RedisStandaloneConfiguration
-    - JedisClient
+  - RedisStandaloneConfiguration
+  - JedisClient
 - ShiroKey
-    - CookieRememberMeManager 
+  - CookieRememberMeManager
+- 模糊搜索用户信息
+  - UserPassSearcher01
 
 更多类型支持尽请期待。
 
 # 使用
 
-本工具需要使用Oracle JDK 1.8版本（更高版本将导致异常）。
+本工具需要使用Java 1.6或更高版本。
 
 ```sh
 $ java -jar .\target\JDumpSpider-1.0-SNAPSHOT-full.jar                  
