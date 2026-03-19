@@ -1,12 +1,9 @@
 name: release
 
 on:
-  watch:
-    types: started
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    tags:
+      - 'v*' 
 
 jobs:
   build:
